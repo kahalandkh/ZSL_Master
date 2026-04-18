@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Exclude large files from version control
+PAAL_ADL
+UiS4ADL
+Embeddings
