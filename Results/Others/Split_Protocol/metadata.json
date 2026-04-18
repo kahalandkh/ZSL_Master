@@ -1,0 +1,27 @@
+{
+    "FS": 100,
+    "WINDOW_SECONDS": 4.0,
+    "OVERLAP_RATIO": 0.0,
+    "METHOD": "temporal_frequency",
+    "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
+    "DESCRIPTION_TYPE": "original_fadi",
+    "USE_PROMPT": true,
+    "LAMBDA": 0.001,
+    "N_SEEN_CLASSES": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+    ],
+    "N_REPEATS": 50,
+    "RANDOM_SEED": 22
+}
