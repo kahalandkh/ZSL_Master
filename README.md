@@ -15,7 +15,7 @@ The repository implements the broader methodological framework of the thesis, in
 - evaluation under fixed **ZSL** and **GZSL** settings
 - cross-dataset experiments between **UiS4ADL** and **PAAL ADL**
 - analysis at both **segment level** and **recording level**
-- generation of figures and result files used in the thesis
+- generation of figures and result files.
 
 Supporting notebooks for preprocessing, embedding generation, feature inspection, and hyperparameter tuning are located in `Data_preparation/`, `Embeddings/`, `Feature_extraction/`, and `Model/`.
 
