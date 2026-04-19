@@ -131,10 +131,11 @@ Before running the notebook:
 
 ## Reproducibility
 
-Experiments are designed to be reproducible across runs.
+The experiments were designed to support reproducible evaluation as closely as possible.
 - Fixed random seeds are used where applicable.
-- Pre-generated embeddings can be downloaded directly to ensure consistency with the thesis results.
+- Pre-generated embeddings can be downloaded directly to match the thesis setup.
 - Controlled comparisons reuse fixed splits and shared configurations where appropriate, so that observed differences reflect the experimental factor under investigation.
+- Because inference includes repeated stochastic sampling, small numerical differences may still occur across runs. In the reported experiments, these differences were minor and did not affect the overall performance patterns or conclusions.
 
 ## License
 
