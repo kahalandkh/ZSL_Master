@@ -50,6 +50,7 @@ ZSL_Master_2026/
 ├── Model
 │   ├── Gamma_tuning.ipynb
 │   ├── Lambda_tuning.ipynb
+│   ├── Inference_stability.ipynb
 │   └── model.py
 ├── README.md
 ├── Results
