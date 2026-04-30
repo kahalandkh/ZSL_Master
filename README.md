@@ -23,7 +23,7 @@ Supporting notebooks for preprocessing, embedding generation, feature inspection
 
 The main components of the repository are:
 ```
-ZSL_Master_2026/
+ZSL_Master/
 ├── .gitignore
 ├── Data
 │   └── adl_dict.json
@@ -76,7 +76,7 @@ Three downloads are required:
 These archives should be downloaded from the provided links and extracted into the repository so that the required files appear under the `Data/` directory. The expected structure is:
 
 ```
-ZSL_Master_2026/
+ZSL_Master/
 ├── Data
 │   ├── Embeddings
 │   │   └── ...
