@@ -17,7 +17,7 @@ class FeatureExtractor:
 
 
     def extract_features(self, data, method, sensor_columns=None, window_seconds=4.0,
-                         overlap_ratio=0.0, fs=100, strategy="retain_short"):
+                         overlap_ratio=0.0, fs=100, strategy="retain_short", verbose=True):
         """
         Extract features from sensor data using specified method.
         """
@@ -43,25 +43,28 @@ class FeatureExtractor:
         window_size = int(window_seconds * fs)
         stride = max(1, int(window_size * (1 - overlap_ratio)))
 
-        print(f"\nExtracting features: {method}")
-        print(f"  Window: {window_seconds}s")
-        print(f"  Overlap: {overlap_ratio} ({stride} stride)")
-        print(f"  Sampling rate: {fs} Hz")
+        if verbose:
+            print(f"\nExtracting features: {method}")
+            print(f"  Window: {window_seconds}s")
+            print(f"  Overlap: {overlap_ratio} ({stride} stride)")
+            print(f"  Sampling rate: {fs} Hz")
 
-        print("\nCreating windows per fileID...")
+            print("\nCreating windows per fileID...")
         windows, labels, fileIDs, subjects = self._create_windows_per_fileid(
-            data, sensor_columns, window_size, stride, strategy
+            data, sensor_columns, window_size, stride, strategy, verbose=verbose
         )
-        print(f"  Created {len(windows)} windows")
-
-        print(f"\nExtracting features using method: {method}...")
-        features_array = self._extract_features_from_windows(windows, method)
-        print(f"  Feature shape: {features_array.shape}")
+        if verbose:
+            print(f"  Created {len(windows)} windows")
+            print(f"\nExtracting features using method: {method}...")
+        features_array = self._extract_features_from_windows(windows, method, verbose=verbose)
+        
+        if verbose:
+            print(f"  Feature shape: {features_array.shape}")
 
         return features_array, labels, fileIDs, subjects
 
 
-    def _create_windows_per_fileid(self, data, sensor_columns, window_size, stride, strategy="retain_short"):
+    def _create_windows_per_fileid(self, data, sensor_columns, window_size, stride, strategy="retain_short", verbose=True):
         """Create windows respecting fileID boundaries."""
         windows, labels, fileIDs, subjects = [], [], [], []
         total_count = 0
@@ -109,20 +112,22 @@ class FeatureExtractor:
 
             total_count += 1
 
-        print(f"  Found {short_count} files that are too short ({short_count/total_count:0.2%} of the available files)")
+        if verbose:
+            print(f"  Found {short_count} files that are shorter than the window size ({short_count/total_count:0.2%} of the available files)")
         return windows, labels, fileIDs, subjects
 
 
-    def _extract_features_from_windows(self, windows, method):
+    def _extract_features_from_windows(self, windows, method, verbose=True):
         """Extract features from all windows using specified method."""
         features = []
 
         for i, window_2d in enumerate(windows):
-            if i % 1000 == 0:
-                if i == 0:
-                    print(f"  Processing window {i}/{len(windows)}")
-                else:
-                    print(f"                    {i}/{len(windows)}")
+            if verbose:
+                if i % 1000 == 0:
+                    if i == 0:
+                        print(f"  Processing window {i}/{len(windows)}")
+                    else:
+                        print(f"                    {i}/{len(windows)}")
 
             if method == 'fadi_original':
                 feat = self._extract_fadi_original(window_2d)
