@@ -1,4 +1,4 @@
-# Zero-Shot Learning for Human Activity Recognition
+# Zero-Shot Learning for Wrist-Worn Micro-Activity Recognition: Evaluation, Pipeline Analysis, and Cross-Dataset Generalisation
 
 This repository contains the full experimental pipeline developed for a Master's thesis investigating Zero-Shot Learning (ZSL) and Generalised Zero-Shot Learning (GZSL) for micro-activity recognition using wearable sensor data.
 
@@ -9,7 +9,7 @@ The repository implements the broader methodological framework of the thesis, in
 - data quality control and preprocessing of raw sensor recordings
 - adaptive trimming of inactive starting and end periods in UiS4ADL recordings
 - segmentation of recordings into fixed windows
-- time- and frequency-domain feature extraction
+- time and frequency domain feature extraction
 - generation of semantic embeddings from different types of activity descriptions
 - training and inference with the projection-based **IP-SAE** model
 - evaluation under fixed **ZSL** and **GZSL** settings
@@ -65,15 +65,15 @@ ZSL_Master/
 
 ## Data availability
 
-The datasets and cached semantic embeddings are not stored directly in the repository. They must be downloaded separately from Google Drive and placed into the repository before running the experiments.
+Due to licensing and size constraints, datasets and cached embeddings are not stored directly in this repository. They must be downloaded separately and placed into the `Data/` directory before running the experiments.
 
-Three downloads are required:
+Required downloads:
 
 1. Pre-generated embeddings: [Download here](https://drive.google.com/file/d/1kayJGw0sBcrccNWqqJ6-TzDh6Zha-oh0/view?usp=sharing)
 2. PAAL ADL dataset (raw and preprocessed versions): [Download here](https://drive.google.com/file/d/1CCyKBcgTjjI2-9aIfZK273ZOY0BoxrGs/view?usp=sharing)
 3. UiS4ADL dataset (raw and preprocessed versions): [Download here](https://drive.google.com/file/d/1q7-q-O5oXi8A7iL4IEE9jo83CkdEKyiV/view?usp=sharing)
 
-These archives should be downloaded from the provided links and extracted into the repository so that the required files appear under the `Data/` directory. The expected structure is:
+Extract the archives into the repository so that they appear under the `Data/` directory following the expected structure:
 
 ```
 ZSL_Master/
