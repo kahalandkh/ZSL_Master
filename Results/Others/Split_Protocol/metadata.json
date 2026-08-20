@@ -4,7 +4,7 @@
     "OVERLAP_RATIO": 0.0,
     "METHOD": "temporal_frequency",
     "EMBEDDING_MODEL": "all-MiniLM-L6-v2",
-    "DESCRIPTION_TYPE": "original_fadi",
+    "DESCRIPTION_TYPE": "original",
     "USE_PROMPT": true,
     "LAMBDA": 0.001,
     "N_SEEN_CLASSES": [

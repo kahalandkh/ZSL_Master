@@ -2,7 +2,6 @@
 Implementing the ZSL/GZSL Model.
 """
 
-from pathlib import Path
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from scipy.linalg import solve_sylvester
@@ -11,8 +10,9 @@ from scipy import spatial
 
 class IP_SAE_MODEL:
     """
-    The model uses the direct projection approach based on the Sylvester equation,
-    heavily inspired by An Integral Projection-Based Semantic Autoencoder (IP-SAE) by Heyden et al. (2023).
+    Integral Projection-Based Semantic Autoencoder (IP-SAE) for ZSL/GZSL.
+    Training is based on the formulation in "An Integral Projection-Based Semantic Autoencoder for Zero-Shot Learning" by Heyden et al. (2023).
+    ZSL/GZSL inference uses repeated semantic augmentation and cosine-similarity averaging; GZSL additionally supports seen-class calibration.
     """
     def __init__(self, lambda_reg=0.001, scale_features=True):
         self.lambda_reg = lambda_reg
@@ -94,7 +94,9 @@ class IP_SAE_MODEL:
         return y_pred
 
     def predict_gzsl(self, X_test, all_class_embeddings, all_class_labels, seen_classes, gamma=0.4, n_runs=35, fixed_seed=True):
-            """Predict labels over seen and unseen classes by averaging augmented inference similarities and applying seen-class calibration."""
+            """
+            Predict labels over seen and unseen classes by averaging augmented inference similarities and applying seen-class calibration.
+            """
             if n_runs < 1:
                 raise ValueError("n_runs must be at least 1.")
             if self.scale_features:

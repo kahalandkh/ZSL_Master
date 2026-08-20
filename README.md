@@ -1,13 +1,14 @@
 # Zero-Shot Learning for Wrist-Worn Micro-Activity Recognition: Evaluation, Pipeline Analysis, and Cross-Dataset Generalisation
 
-This repository contains the full experimental pipeline developed for a Master's thesis investigating Zero-Shot Learning (ZSL) and Generalised Zero-Shot Learning (GZSL) for micro-activity recognition using wearable sensor data.
+This repository contains the experimental pipeline accompanying a study investigating Zero-Shot Learning (ZSL) and Generalised Zero-Shot Learning (GZSL) for micro-activity recognition using wearable sensor data.
+
 
 ## Overview
 
-The repository implements the broader methodological framework of the thesis, including:
+The repository implements the experimental framework used in the study, including:
 
 - data quality control and preprocessing of raw sensor recordings
-- adaptive trimming of inactive starting and end periods in UiS4ADL recordings
+- adaptive trimming of inactive periods at the beginning and end of UiS4ADL recordings
 - segmentation of recordings into fixed windows
 - time and frequency domain feature extraction
 - generation of semantic embeddings from different types of activity descriptions
@@ -17,13 +18,13 @@ The repository implements the broader methodological framework of the thesis, in
 - analysis at both **segment level** and **recording level**
 - generation of figures and result files.
 
-Supporting notebooks for preprocessing, embedding generation, feature inspection, and hyperparameter tuning are located in `Data_preparation/`, `Embeddings/`, `Feature_extraction/`, and `Model/`.
+Supporting code and notebooks for preprocessing, embedding generation, feature analysis, and hyperparameter tuning are organised in `Data_preparation/`, `Embeddings/`, `Feature_extraction/`, and `Model/`.
 
 ## Repository structure
 
 The main components of the repository are:
 ```
-ZSL_Master/
+repository/
 ├── .gitignore
 ├── Data
 │   └── adl_dict.json
@@ -63,20 +64,39 @@ ZSL_Master/
 └── requirements.txt
 ```
 
+
 ## Data availability
 
-Due to licensing and size constraints, datasets and cached embeddings are not stored directly in this repository. They must be downloaded separately and placed into the `Data/` directory before running the experiments.
+The experiments use the PAAL ADL and UiS4ADL datasets.
 
-Required downloads:
+#### PAAL ADL
 
-1. Pre-generated embeddings: [Download here](https://drive.google.com/file/d/1kayJGw0sBcrccNWqqJ6-TzDh6Zha-oh0/view?usp=sharing)
-2. PAAL ADL dataset (raw and preprocessed versions): [Download here](https://drive.google.com/file/d/1CCyKBcgTjjI2-9aIfZK273ZOY0BoxrGs/view?usp=sharing)
-3. UiS4ADL dataset (raw and preprocessed versions): [Download here](https://drive.google.com/file/d/1q7-q-O5oXi8A7iL4IEE9jo83CkdEKyiV/view?usp=sharing)
+The raw PAAL ADL dataset is publicly available from [Zenodo](https://zenodo.org/records/5785955):
 
-Extract the archives into the repository so that they appear under the `Data/` directory following the expected structure:
+Climent-Pérez, P., Muñoz-Antón, Á. M., Poli, A., Spinsante, S., & Florez-Revuelta, F. *PAAL ADL Accelerometry Dataset v2.0* (Version 2.0). Zenodo. DOI: 10.5281/zenodo.5785955.
+
+After downloading the dataset, place the original files under: `Data/PAAL_ADL/Raw/`. The preprocessing used in this study is implemented in `Data_preparation/1_prepare_PAAL_ADL.ipynb`.
+
+#### UiS4ADL
+
+The UiS4ADL dataset is not publicly available for direct download. The dataset was first used in:
+
+Al Machot, F., Ullah, H., & Demrozi, F. “Recognizing Hand-Based Micro Activities Using Wrist-Worn Inertial Sensors: A Zero-Shot Learning Approach.” In *The Combined Power of Research, Education, and Dissemination: Essays Dedicated to Tiziana Margaria on the Occasion of Her 60th Birthday*, M. Hinchey & B. Steffen, Eds. Cham: Springer Nature Switzerland, 2025, pp. 215–234. DOI: 10.1007/978-3-031-73887-6_16.
+
+Users with authorised access to UiS4ADL should place the raw files under: `Data/UiS4ADL/Raw/`. The preprocessing steps used in this study are provided in `Data_preparation/`. The relevant preprocessing notebooks should be run in numerical order.
+
+
+## Semantic embeddings
+
+Semantic embeddings are not included in the repository. They can be regenerated from the provided activity descriptions by running `Embeddings/generate_embeddings.ipynb`. The notebook generates the embeddings required by the experiments for all supported embedding models and activity-description variants.
+
+
+## Expected data structure
+
+After obtaining the required data and running the preprocessing notebooks, the `Data/` directory should have the following structure:
 
 ```
-ZSL_Master/
+repository/
 ├── Data
 │   ├── Embeddings
 │   │   └── ...
@@ -107,7 +127,7 @@ ZSL_Master/
 
 ## Setup and execution
 
-The implementation used in the thesis was developed in **Python 3.11.9**.  
+The implementation used in the experiments was developed in **Python 3.11.9**.  
 The required dependencies are listed in `requirements.txt`.
 
 A typical setup is:
@@ -118,25 +138,27 @@ source venv/bin/activate    # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-No additional installation steps beyond Python and the listed dependencies are required.
+No additional software installation beyond Python and the listed dependencies is required. Regenerating semantic embeddings requires downloading the pretrained embedding models used in the experiments.
 
 The main experimental workflow is contained in `Experiments/Experiments.ipynb`.
 The notebook is designed to be run sequentially from top to bottom. Later sections depend on variables, intermediate results, and outputs created in earlier sections. Running cells out of order may therefore lead to errors or incorrect results.
 
-Before running the notebook:
+Before running the main experiment notebook:
 
-1. download and extract the required archives into `Data/`
+1. obtain the required datasets and place the raw files under `Data/` using the structure described above
 2. create and activate a Python environment
 3. install the dependencies listed in `requirements.txt`
-4. open `Experiments/Experiments.ipynb` and run all cells in order
+4. run the relevant preprocessing notebooks in `Data_preparation/`
+5. generate the semantic embeddings using `Embeddings/generate_embeddings.ipynb`
+6. open `Experiments/Experiments.ipynb` and run all cells in order
 
 ## Reproducibility
 
 The experiments were designed to support reproducible evaluation as closely as possible.
 - Fixed random seeds are used where applicable.
-- Pre-generated embeddings can be downloaded directly to match the thesis setup.
-- Controlled comparisons reuse fixed splits and shared configurations where appropriate, so that observed differences reflect the experimental factor under investigation.
-- Because inference includes repeated stochastic sampling, small numerical differences may still occur across runs. In the reported experiments, these differences were minor and did not affect the overall performance patterns or conclusions.
+- Semantic embeddings can be regenerated from the provided activity descriptions using `Embeddings/generate_embeddings.ipynb`.
+- Controlled comparisons reuse fixed splits and shared configurations where appropriate to reduce variation between experimental conditions.
+- Because inference includes repeated stochastic sampling, small numerical differences may still occur across runs. In the reported experiments, these differences were minor and did not affect the overall performance patterns or conclusions. `Model/Inference_stability.ipynb` separately evaluates the variability introduced when inference is run without fixed seeds.
 
 ## License
 

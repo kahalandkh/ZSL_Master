@@ -9,7 +9,7 @@ class FeatureExtractor:
     """Extract and manage features for HAR."""
 
     METHODS = [
-        'fadi_original',      # Original Fadi method
+        'original',      # Method originally used in "Few-Shot Learning for Hand-Based Micro Activity Recognition" by Demrozi and Al Machot (2025)
         'temporal',           # Temporal features only
         'frequency',          # Frequency features only
         'temporal_frequency', # Combined temporal + frequency
@@ -129,8 +129,8 @@ class FeatureExtractor:
                     else:
                         print(f"                    {i}/{len(windows)}")
 
-            if method == 'fadi_original':
-                feat = self._extract_fadi_original(window_2d)
+            if method == 'original':
+                feat = self._extract_original(window_2d)
             elif method == 'temporal':
                 feat = self._extract_temporal(window_2d)
             elif method == 'frequency':
@@ -147,11 +147,11 @@ class FeatureExtractor:
         return np.array(features)
 
 
-    def _extract_fadi_original(self, data):
+    def _extract_original(self, data):
         """
-        Original Fadi feature extraction.
-        Includes mean, std, min, max, median, var, range, IQR, RMS, SMA, MAD
-        applied to both original data and 1st derivative.
+        Feature extraction following the method used in "Few-Shot Learning for Hand-Based Micro Activity Recognition" by Demrozi and Al Machot (2025).
+        For each sensor channel, computes mean, standard deviation, minimum, maximum, median, variance, range, IQR, RMS, mean absolute value, 
+        and mean absolute successive difference. The same statistics are also computed for the first-order difference of the signal.
         """
         def calc_stats(x):
             return np.concatenate([

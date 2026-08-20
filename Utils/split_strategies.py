@@ -3,8 +3,6 @@ Splitting classes into seen/unseen sets.
 """
 
 import numpy as np
-import pandas as pd
-
 
 class ClassSplitter:
     """Manages different strategies for splitting classes into seen/unseen sets."""
@@ -12,17 +10,17 @@ class ClassSplitter:
     def __init__(self, random_seed=22):
         """
         Initialize class splitter.
-        
-        Args:
-            random_seed: Random seed for reproducibility
         """
         self.random_seed = random_seed
         np.random.seed(random_seed)
     
-    def split_random(self, all_classes, seen_ratio = 0.5):
+    def split_random(self, all_classes, seen_ratio=0.5):
         """
         Random split of classes.
         """
+        if not 0.0 < seen_ratio < 1.0:
+            raise ValueError("seen_ratio must be between 0 and 1.")
+        
         all_classes = np.array(all_classes)
         np.random.shuffle(all_classes)
         

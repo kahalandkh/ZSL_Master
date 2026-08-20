@@ -1,11 +1,10 @@
 """ 
 Dictionaries for multiple semantic and linguistic variants of activity descriptions.
-Each activity includes alternative textual descriptions for embedding experiments,
-including short, medium, specific, noisy, unrelated, technical, and long-form versions.
+Each activity includes alternative textual descriptions for embedding experiments, including short, medium, specific, noisy and random unrelated versions.
 """
 
 
-original_descriptions_fadi = {
+original_descriptions = { # originally used in "Recognizing Hand-based Micro Activities Using Wrist-Worn Inertial Sensors: A Zero-Shot Learning Approach" (Al Machot et al., 2024)
     1: "The person drinks water from a glass or bottle to quench thirst, usually done in a kitchen or dining area. The person lifts the container to their mouth and tilts it to let the water flow in, feeling refreshed afterwards.",
     2: "The person eats a meal with utensils such as a fork and knife, often sitting at a dining table. The person uses the utensils to cut and bring food to their mouth, enjoying the taste and satisfying their hunger.",
     3: "The person opens a plastic bottle by unscrewing the cap, typically to drink or pour the contents. This involves gripping the bottle with one hand and twisting the cap with the other, sometimes hearing a popping sound as the seal breaks.",
@@ -230,7 +229,7 @@ very_long_narrative_descriptions = {
 
 
 DESCRIPTION_TYPES = {
-    "original_fadi": original_descriptions_fadi,
+    "original": original_descriptions,
     "short": short_descriptions,
     "medium": medium_descriptions,
     "specific": specific_descriptions,
@@ -241,7 +240,7 @@ DESCRIPTION_TYPES = {
 }
 
 
-def get_descriptions(desc_type="original_fadi"):
+def get_descriptions(desc_type="original"):
     """Return the activity-description dictionary for the requested description variant."""
     if desc_type not in DESCRIPTION_TYPES:
         raise ValueError(f"Unknown description type: {desc_type}. Choose from {list(DESCRIPTION_TYPES.keys())}")

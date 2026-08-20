@@ -23,7 +23,7 @@ class EmbeddingGenerator:
         'clip-ViT-L/14',
         'hkunlp/instructor-large',
         'bert-base-uncased',
-        'paraphrase-MiniLM-L6-v2' # originally used in "Recognizing Hand-based Micro Activities Using Wrist-Worn Inertial Sensors: A Zero-Shot Learning Approach" (Fadi et. al, 2024)
+        'paraphrase-MiniLM-L6-v2' # originally used in "Recognizing Hand-based Micro Activities Using Wrist-Worn Inertial Sensors: A Zero-Shot Learning Approach" (Al Machot et. al, 2024)
     ]
     
     
@@ -32,11 +32,11 @@ class EmbeddingGenerator:
         self.output_dir.mkdir(parents=True, exist_ok=True)
     
     
-    def _generate_filename(self, model_name, desc_type, use_prompt, dataset='fadi'):
-        """Generate a filename for embeddings with format like: {model_name}_{desc_type}_{prompt}_{dataset}.npz"""
+    def _generate_filename(self, model_name, desc_type, use_prompt):
+        """Generate a filename for embeddings with format like: {model_name}_{desc_type}_{prompt}.npz"""
         clean_model = model_name.replace('/', '_').replace('-', '_').lower()
         prompt_suffix = "prompt" if use_prompt else "noprompt"
-        return f"{clean_model}_{desc_type}_{prompt_suffix}_{dataset}.npz"
+        return f"{clean_model}_{desc_type}_{prompt_suffix}.npz"
     
     
     def generate_embeddings(self, descriptions_dict, model_name, use_prompt=False, device=device):
@@ -134,9 +134,9 @@ class EmbeddingGenerator:
         return embedding_array
 
 
-    def save_embeddings(self, embeddings_array, model_name, desc_type, use_prompt=False, dataset='fadi'):
+    def save_embeddings(self, embeddings_array, model_name, desc_type, use_prompt=False):
         """Save embeddings to .npz file"""
-        filename = self._generate_filename(model_name, desc_type, use_prompt, dataset)
+        filename = self._generate_filename(model_name, desc_type, use_prompt)
         filepath = self.output_dir / filename
         
         np.savez_compressed(
@@ -145,7 +145,6 @@ class EmbeddingGenerator:
             model_name=model_name,
             desc_type=desc_type,
             use_prompt=use_prompt,
-            dataset=dataset,
             created_at=datetime.now().isoformat()
         )
         
@@ -156,9 +155,9 @@ class EmbeddingGenerator:
         return filepath
 
 
-    def load_embeddings(self, model_name, desc_type, use_prompt=False, dataset='fadi'):
+    def load_embeddings(self, model_name, desc_type, use_prompt=False):
         """Load embeddings as numpy array."""
-        filename = self._generate_filename(model_name, desc_type, use_prompt, dataset)
+        filename = self._generate_filename(model_name, desc_type, use_prompt)
         filepath = self.output_dir / filename
         
         if not filepath.exists():
@@ -173,8 +172,8 @@ class EmbeddingGenerator:
         return data['embeddings']
 
       
-    def generate_and_save(self, descriptions_dict, model_name, desc_type, use_prompt=False, dataset='fadi'):
+    def generate_and_save(self, descriptions_dict, model_name, desc_type, use_prompt=False):
         """Generate and save embeddings in one step."""
         embeddings = self.generate_embeddings(descriptions_dict, model_name, use_prompt=use_prompt, device=device)
-        filepath = self.save_embeddings(embeddings, model_name, desc_type, use_prompt, dataset)
+        filepath = self.save_embeddings(embeddings, model_name, desc_type, use_prompt)
         return embeddings, filepath
