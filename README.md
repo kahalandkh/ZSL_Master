@@ -1,6 +1,7 @@
 # Zero-Shot Learning for Wrist-Worn Micro-Activity Recognition: Evaluation, Pipeline Analysis, and Cross-Dataset Generalisation
 
-This repository contains the experimental pipeline accompanying a study investigating Zero-Shot Learning (ZSL) and Generalised Zero-Shot Learning (GZSL) for micro-activity recognition using wearable sensor data.
+This repository contains the experimental pipeline accompanying a study investigating Zero-Shot Learning (ZSL) and Generalised Zero-Shot Learning
+(GZSL) for wrist-worn micro-activity recognition, including controlled semantic-factor experiments, cross-dataset evaluation, and subject-independent evaluation.
 
 
 ## Overview
@@ -14,6 +15,7 @@ The repository implements the experimental framework used in the study, includin
 - generation of semantic embeddings from different types of activity descriptions
 - training and inference with the projection-based **IP-SAE** model
 - evaluation under fixed **ZSL** and **GZSL** settings
+- subject-independent ZSL evaluation
 - cross-dataset experiments between **UiS4ADL** and **PAAL ADL**
 - analysis at both **segment level** and **recording level**
 - generation of figures and result files.
@@ -43,7 +45,8 @@ repository/
 │   │   └── descriptions.py
 │   └── generate_embeddings.ipynb
 ├── Experiments
-│   └── Experiments.ipynb
+│   ├── Experiments.ipynb
+│   └── Experiments_subject_independent.ipynb
 ├── Feature_extraction
 │   ├── Plot_imbalance.ipynb
 │   └── feature_extractor.py
@@ -140,10 +143,10 @@ pip install -r requirements.txt
 
 No additional software installation beyond Python and the listed dependencies is required. Regenerating semantic embeddings requires downloading the pretrained embedding models used in the experiments.
 
-The main experimental workflow is contained in `Experiments/Experiments.ipynb`.
-The notebook is designed to be run sequentially from top to bottom. Later sections depend on variables, intermediate results, and outputs created in earlier sections. Running cells out of order may therefore lead to errors or incorrect results.
+The main experimental workflow is contained in `Experiments/Experiments.ipynb`, with the subject-independent evaluation provided separately in `Experiments/Experiments_subject_independent.ipynb`.
+The notebooks are designed to be run sequentially from top to bottom. Later sections depend on variables, intermediate results, and outputs created in earlier sections. Running cells out of order may therefore lead to errors or incorrect results.
 
-Before running the main experiment notebook:
+Before running the main experiment notebooks:
 
 1. obtain the required datasets and place the raw files under `Data/` using the structure described above
 2. create and activate a Python environment
@@ -151,13 +154,15 @@ Before running the main experiment notebook:
 4. run the relevant preprocessing notebooks in `Data_preparation/`
 5. generate the semantic embeddings using `Embeddings/generate_embeddings.ipynb`
 6. open `Experiments/Experiments.ipynb` and run all cells in order
+7. to reproduce the subject-independent experiments, open `Experiments/Experiments_subject_independent.ipynb` and run all cells in order
 
 ## Reproducibility
 
 The experiments were designed to support reproducible evaluation as closely as possible.
 - Fixed random seeds are used where applicable.
 - Semantic embeddings can be regenerated from the provided activity descriptions using `Embeddings/generate_embeddings.ipynb`.
-- Controlled comparisons reuse fixed splits and shared configurations where appropriate to reduce variation between experimental conditions.
+- Controlled comparisons reuse fixed activity splits and shared configurations where appropriate to reduce variation between experimental conditions.
+- Subject-independent evaluation uses 50 repeated random participant partitions, reused across the corresponding experimental comparisons.
 - Because inference includes repeated stochastic sampling, small numerical differences may still occur across runs. In the reported experiments, these differences were minor and did not affect the overall performance patterns or conclusions. `Model/Inference_stability.ipynb` separately evaluates the variability introduced when inference is run without fixed seeds.
 
 ## License
