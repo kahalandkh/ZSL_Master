@@ -82,12 +82,11 @@ After downloading the dataset, place the original files under: `Data/PAAL_ADL/Ra
 
 #### UiS4ADL
 
-The UiS4ADL dataset is not publicly available for direct download. The dataset was first used in:
+The UiS4ADL dataset used in this study is available through **FLAIR: Free-Living Activities for Independent-living Recognition**:
 
-Al Machot, F., Ullah, H., & Demrozi, F. “Recognizing Hand-Based Micro Activities Using Wrist-Worn Inertial Sensors: A Zero-Shot Learning Approach.” In *The Combined Power of Research, Education, and Dissemination: Essays Dedicated to Tiziana Margaria on the Occasion of Her 60th Birthday*, M. Hinchey & B. Steffen, Eds. Cham: Springer Nature Switzerland, 2025, pp. 215–234. DOI: 10.1007/978-3-031-73887-6_16.
+Demrozi, F. *FLAIR: Free-Living Activities for Independent-living Recognition*. Zenodo, 2026. Project repository: https://github.com/FlorencDemrozi/flair
 
-Users with authorised access to UiS4ADL should place the raw files under: `Data/UiS4ADL/Raw/`. The preprocessing steps used in this study are provided in `Data_preparation/`. The relevant preprocessing notebooks should be run in numerical order.
-
+After obtaining the full dataset, place the original files under: `Data/UiS4ADL/Raw/`. The preprocessing steps used in this study are provided in `Data_preparation/`. The relevant preprocessing notebooks should be run in numerical order.
 
 ## Semantic embeddings
 
@@ -167,4 +166,4 @@ The experiments were designed to support reproducible evaluation as closely as p
 
 ## License
 
-This repository is licensed under the MIT License.
+The code in this repository is licensed under the MIT License. The datasets used in the experiments are subject to their respective access conditions and licences.
