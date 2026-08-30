@@ -18,6 +18,7 @@ The repository implements the experimental framework used in the study, includin
 - subject-independent ZSL evaluation
 - cross-dataset experiments between **UiS4ADL** and **PAAL ADL**
 - analysis at both **segment level** and **recording level**
+- inference cost and model size measurements
 - generation of figures and result files.
 
 Supporting code and notebooks for preprocessing, embedding generation, feature analysis, and hyperparameter tuning are organised in `Data_preparation/`, `Embeddings/`, `Feature_extraction/`, and `Model/`.
