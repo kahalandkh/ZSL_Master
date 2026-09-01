@@ -83,9 +83,9 @@ After downloading the dataset, place the original files under: `Data/PAAL_ADL/Ra
 
 #### UiS4ADL
 
-The UiS4ADL dataset used in this study is available through **FLAIR: Free-Living Activities for Independent-living Recognition**:
+The UiS4ADL dataset used in this study is available through **FLAIR: Free-Living Activities for Independent-Living Recognition**:
 
-Demrozi, F. *FLAIR: Free-Living Activities for Independent-living Recognition*. Zenodo, 2026. Project repository: https://github.com/FlorencDemrozi/flair
+Demrozi, F., Al Machot, F., & Fjereide, D. E. *Free-Living Activities for Independent-Living Recognition (FLAIR).* GitHub, 2026. Project repository: [https://github.com/FlorencDemrozi/flair](https://github.com/FlorencDemrozi/flair)
 
 After obtaining the full dataset, place the original files under: `Data/UiS4ADL/Raw/`. The preprocessing steps used in this study are provided in `Data_preparation/`. The relevant preprocessing notebooks should be run in numerical order.
 
