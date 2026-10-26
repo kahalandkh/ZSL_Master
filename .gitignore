@@ -210,3 +210,6 @@ __marimo__/
 PAAL_ADL
 UiS4ADL
 Embeddings
+
+# macOS
+.DS_Store
